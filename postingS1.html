@@ -1,0 +1,171 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Muaban.net</title>
+	<meta name="viewport" content="target-densityDpi=device-dpi, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <link href="css/index.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-ui-1.8.10.custom.min.js"></script>  
+	<script type="text/javascript" charset="utf-8" src="js/OptionMenu.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="js/common.js"></script>	
+    <script type="text/javascript" charset="utf-8" src="js/cordova.ios.js"></script>
+
+</head>
+<body>
+	<div id="div_Main">
+		<header id="top_header">
+			<div style="float:left;position:absolute;">
+				 <img src="images/back-button.png" border="0" onclick="history.back();">
+			</div>
+			<div style="float:lef; text-align:center;">
+			TP.HCM
+			</div>
+			
+		</header>
+		<nav id="top_nav">
+		
+		</nav>
+		<div id="main_container">
+			<section id="main_section">	
+				<table style="width:100%" boder="0">
+					<tr>
+						<td style="width:35%">Chuyên mục:</td>
+						<td>Tuyển sinh>>Đào tạo>>Đào tạo</td>
+					</tr>
+					<tr>
+						<td style="width:35%">Tỉnh thành:</td>
+						<td><select style="width:100%">
+								<option>Tp.HCM</option>
+								<option>Đà Nẵng</option>
+								<option>Hà Nội</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">Tiêu đề:</br>
+							<input type="text" id="txtTitle"/>						
+						</td>
+						
+					</tr>
+					<tr>
+						<td colspan="2">Nội dung:</br>
+							<textarea  id="txtcontent" rows="8"></textarea>					
+						</td>
+						
+					</tr>
+					<tr>
+						<td style="width:35%">Upload hình:</td>
+						<td>						
+						<img src="images/open_file2.jpg" border="0" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" title="Lấy ảnh từ album">album &nbsp;
+						<img src="images/take_photo.jpg" border="0" onclick="capturePhoto();" title="Chụp ảnh">Chụp hình
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label id="lblImage">
+							</label>
+						</td>
+						
+					</tr>
+				</table>
+				
+				
+				
+			</section>			
+		</div>	
+		<div id="optionsmenu">
+			<table style="width: 100%;" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<table style="width: 100%;" cellpadding="0" cellspacing="0">
+							<tr>
+								<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/home.png"><br>Trang chủ</td>
+								<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/posting.jpg"><br><a onclick="posting();" border="0" style="text-decoration:none">Lưu & Đăng tin</a></td>
+								<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/login.jpg"><br>Làm lại</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>	
+		<script language="JavaScript">
+			var pictureSource;   // picture source
+    		var destinationType; // sets the format of returned value 
+    		var serviceUrl='http://spt5.muaban.net:8080/MBNAgency/services/MBNCustomerService.asmx?op='; 
+			var lblImage =$('#lblImage');
+			//kiểm tra đã đăng nhập chưa nếu chưa thì trả về trang đăng nhập
+			if(checkLogin()==false) {
+				window.location.href='login.html';
+			}
+			
+		    document.addEventListener("deviceready",onDeviceReady,false);
+		    function onDeviceReady() {		    	
+		        pictureSource=navigator.camera.PictureSourceType;
+		        destinationType=navigator.camera.DestinationType;
+		    }
+			function posting(){					
+					uploadImage();
+			}
+			
+				
+			function uploadImage()
+			{		
+				$("img").each(function( index ) {					
+					if($(this).attr('id')=='smallImage') {
+						var imageURI = $(this).attr('src');
+						var options = new FileUploadOptions();	
+						options.fileKey="file";
+						options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1)+'.jpg';
+						options.mimeType="image/jpeg";
+			
+						var params = new Object();
+						params.value1 = "test";
+						params.value2 = "param";
+			
+						options.params = params;
+						options.chunkedMode = false;				
+						var ft = new FileTransfer();									
+						ft.upload(imageURI,'http://spt5.muaban.net:8080/MBNAgency/login.aspx', win, fail, options);
+					}					  
+				});
+			}
+				
+			
+			function win(r) {
+	            console.log("Code = " + r.responseCode);
+	            console.log("Response = " + r.response);
+	            console.log("Sent = " + r.bytesSent);
+	        }
+	
+	        function fail(error) {
+	            alert("An error has occurred: Code = " + error.code);
+	        }
+			function getPhoto(source) {
+		      // Retrieve image file location from specified source
+				navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+		        destinationType: destinationType.FILE_URI,
+		        sourceType: source });
+		    }
+		    function onPhotoURISuccess(imageURI) {	
+		      var smallImage = '<img style="width:80px;height:80px;" id="smallImage" src="'+ imageURI +'" />&nbsp;';			  
+		      lblImage.append(smallImage);
+		      
+		    }		    
+		    function onFail()
+		    {
+		    	alert('co loi xay ra');
+		    }
+		    function capturePhoto() {		     
+		      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+		    }
+		    function onPhotoDataSuccess(imageData) {		      
+				var uri="data:image/jpeg;base64," + imageData;
+				var smallImage = '<img style="display:none;width:60px;height:60px;" id="smallImage" src="'+ uri +'" />&nbsp;';
+				lblImage.append(smallImage);
+		      
+		    }
+	</script>
+	</div>
+	
+</body>
+</html>

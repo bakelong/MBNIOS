@@ -1,0 +1,147 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Muaban.net</title>
+	<meta name="viewport" content="target-densityDpi=device-dpi, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <link href="css/index.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-ui-1.8.10.custom.min.js"></script>  	
+	<script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/json.js"></script>	
+    <script type="text/javascript" charset="utf-8" src="js/cordova.ios.js"></script>
+
+</head>
+<body>
+	
+		<div id="div_Main">
+			<header id="top_header">
+				<div style="float:left;position:absolute;">
+					 <img src="images/back-button.png" border="0" onclick="history.back();">
+				</div>
+				<div style="float:lef; text-align:center;">
+				TP.HCM
+				</div>
+				
+			</header>
+			<nav id="top_nav">
+			
+			</nav>
+			<form id="frmLogin">
+			<div id="main_container">
+				<section id="main_section">	
+					
+					<table style="width:100%" boder="0">
+						<tr>						
+							<td style="text-align:left; pading-left:10px"> <img src="images/security.png" border="0"> <span style="font:bold 15px red;">Đăng nhập Muaban.net</span> </td>
+						</tr>
+						<tr>						
+							<td>
+								Email(*):
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="txtEmail" name="txtEmail"/>						
+							</td>
+							
+						</tr>
+						<tr>						
+							<td>
+								Mật khẩu(*):
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="password" id="txtPass" name="txtPass"/>				
+							</td>
+							
+						</tr>
+										
+					</table>				
+					
+					
+				</section>			
+			</div>	
+			<div id="optionsmenu">
+				<table style="width: 100%;" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<table style="width: 100%;" cellpadding="0" cellspacing="0">
+								<tr>
+									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><a href="index.html"><img src="images/home.png"><br>Trang chủ</a></td>
+									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/login.jpg"><br> <input type="submit" value="Đăng nhập" style="padding:0; margin:0;border:none;background:none;cursor:pointer;color: black; font-weight: bold"/></td>
+									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/login.jpg"><br><input type="reset" value="Làm lại" onlick="validator.resetForm();" style="padding:0; margin:0;border:none;background:none;cursor:pointer;color: black; font-weight: bold"/></td>
+								</tr>
+							</table>
+						</td>
+					</tr>			
+			</div>	
+			
+			</form>
+			<script language="JavaScript">
+				var pictureSource;   // picture source
+				var destinationType; // sets the format of returned value 
+				var serviceUrl='http://spt5.muaban.net:8080/MBNAgency/services/MBNCustomerService.asmx?op='; 
+				
+				document.addEventListener("deviceready",onDeviceReady,false);
+				function onDeviceReady() {		    	
+					pictureSource=navigator.camera.PictureSourceType;
+					destinationType=navigator.camera.DestinationType;
+				}				
+				$(document).ready(function(){
+					$('#frmLogin').validate({ 
+						debug: false, 
+						rules: { 
+								txtEmail: { 
+										required: true
+										
+								}, 
+								txtPass: { 
+									required: true, 
+								} 
+						}, 
+						messages: { 
+								txtPass: "Mật khẩu bắt buộc nhập.", 
+								txtEmail: {
+									required:"Email bắt buộc nhập."
+									//email:"Email nhập vào không đúng."
+								}, 
+						}, 
+						submitHandler: function(form) { 
+							login();
+
+						},
+						invalidHandler: function (form, validator) {
+							var errors = validator.numberOfInvalids();							
+						}
+					});
+				});	
+				function login()
+				{
+					var userName =$('#txtEmail').val();
+					var passWord =$('#txtPass').val();				
+					var params ="{'userName':'"+ userName+"', 'password':'"+ passWord+"'}";					
+					$.ajax({		
+						data: params,
+						type: "post",
+						dataType: "json",
+						contentType: "application/json; charset=utf-8",
+						url: "http://spt5.muaban.net:8080/MBNAgency/services/MBNCustomerService.asmx/LoginFromMobile",
+						complete: function(jsondata, status) {
+							if(jsondata.Result==0){
+								alert(jsondata.Message);
+							} else
+							{
+								localStorage.setItem("username", userName);
+								window.location.href='postingS1.html';
+							}
+													
+						}
+					});
+				}
+				
+			</script>
+	</div>
+	
+</body>
+</html>

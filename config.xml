@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+       Licensed to the Apache Software Foundation (ASF) under one
+       or more contributor license agreements.  See the NOTICE file
+       distributed with this work for additional information
+       regarding copyright ownership.  The ASF licenses this file
+       to you under the Apache License, Version 2.0 (the
+       "License"); you may not use this file except in compliance
+       with the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing,
+       software distributed under the License is distributed on an
+       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+       KIND, either express or implied.  See the License for the
+       specific language governing permissions and limitations
+       under the License.
+-->
+<cordova>
+    <!--
+    access elements control the Android whitelist.
+    Domains are assumed blocked unless set otherwise
+     -->
+
+    <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
+
+    <!-- <access origin="https://example.com" /> allow any secure requests to example.com -->
+    <!-- <access origin="https://example.com" subdomains="true" /> such as above, but including subdomains, such as www -->
+    <access origin=".*"/>
+
+    <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
+   <access origin=".*"/>
+
+    <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
+    <content src="index.html" />
+
+    <log level="DEBUG"/>
+    <preference name="useBrowserHistory" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="phonegap-version"           value="2.5.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
+    <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
+    <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
+   
+   <!--preference ios -->
+    <preference name="webviewbounce"              value="false" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+    <preference name="prerendered-icon"           value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
+    <preference name="stay-in-webview"            value="false" />          <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
+    <preference name="ios-statusbarstyle"         value="black-opaque" />   <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
+    <preference name="detect-data-types"          value="true" />           <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
+    <preference name="exit-on-suspend"            value="true" />          <!-- ios: if set to true, app will terminate when home button is pressed -->
+    <preference name="show-splash-screen-spinner" value="true" />           <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
+    <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+   
+   <!-- blackberry -->
+    <preference name="disable-cursor"             value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
+    
+    <!---preference android-->
+    <preference name="android-minSdkVersion"      value="7" />             <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+    <preference name="android-installLocation"    value="auto" />      <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
+<plugins>
+    <!--plugin ios-->    
+       <plugin name="Device" value="CDVDevice" />
+       <plugin name="Logger" value="CDVLogger" />
+       <plugin name="Compass" value="CDVLocation" />
+       <plugin name="Accelerometer" value="CDVAccelerometer" />
+       <plugin name="Camera" value="CDVCamera" />
+       <plugin name="NetworkStatus" value="CDVConnection" />
+       <plugin name="Contacts" value="CDVContacts" />
+       <plugin name="Debug Console" value="CDVDebugConsole" />
+       <plugin name="Echo" value="CDVEcho" />
+       <plugin name="File" value="CDVFile" />
+       <plugin name="FileTransfer" value="CDVFileTransfer" />
+       <plugin name="Geolocation" value="CDVLocation" />
+       <plugin name="Notification" value="CDVNotification" />
+       <plugin name="Media" value="CDVSound" />
+       <plugin name="Capture" value="CDVCapture" />
+       <plugin name="SplashScreen" value="CDVSplashScreen" />
+       <plugin name="Battery" value="CDVBattery" />
+       <plugin name="Globalization" value="CDVGlobalization" />
+       <plugin name="InAppBrowser" value="CDVInAppBrowser" />   
+</plugins>
+</cordova>
+

@@ -7,7 +7,7 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery-ui-1.8.10.custom.min.js"></script>  	
 	<script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/json.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="js/json.js"></script>	
     <script type="text/javascript" charset="utf-8" src="js/cordova.ios.js"></script>
 
 </head>
@@ -69,7 +69,7 @@
 							<table style="width: 100%;" cellpadding="0" cellspacing="0">
 								<tr>
 									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><a href="index.html"><img src="images/home.png"><br>Trang chủ</a></td>
-									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/login.jpg"><br> <input type="submit" value="Đăng nhập" style="padding:0; margin:0;border:none;background:none;cursor:pointer;color: black; font-weight: bold"/></td>
+									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/login.jpg"><br> <input type="button" value="Đăng nhập" style="padding:0; margin:0;border:none;background:none;cursor:pointer;color: black; font-weight: bold" onclick="login();"/></td>
 									<td align="center" width="33%" style="color: black; font-weight: bold; border-top: 1px solid grey; border-right: 1px solid grey; background-color: white"><img src="images/login.jpg"><br><input type="reset" value="Làm lại" onlick="validator.resetForm();" style="padding:0; margin:0;border:none;background:none;cursor:pointer;color: black; font-weight: bold"/></td>
 								</tr>
 							</table>
@@ -89,7 +89,7 @@
 					destinationType=navigator.camera.DestinationType;
 				}				
 				$(document).ready(function(){
-					$('#frmLogin').validate({ 
+					/*$('form').validate({ 
 						debug: false, 
 						rules: { 
 								txtEmail: { 
@@ -114,10 +114,11 @@
 						invalidHandler: function (form, validator) {
 							var errors = validator.numberOfInvalids();							
 						}
-					});
+					});*/
 				});	
 				function login()
 				{
+				
 					var userName =$('#txtEmail').val();
 					var passWord =$('#txtPass').val();				
 					var params ="{'userName':'"+ userName+"', 'password':'"+ passWord+"'}";					
